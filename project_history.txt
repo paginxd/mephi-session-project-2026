@@ -1,0 +1,105 @@
+    1  ip a
+    2  ip route
+    3  sudo poweroff
+    4  ls
+    5  nmcli connection show
+    6  sudo nmcli con modify  mephi-net ipv4.addresses 192.168.0.100/24
+    7  sudo nmcli con modify  mephi-net ipv4.gateway 192.168.0.1
+    8  sudo nmcli con modify  mephi-net ipv4.dns "8.8.8.8"
+    9  sudo nmcli con modify  mephi-net ipv4.method manual
+   10  sudo nmcli con up mephi-net 
+   11  ping -c 4 192.168.0.1
+   12  sudo nmcli delete mephi-net
+   13  sudo nmcli con delete mephi-net
+   14  sudo nmcli con add type ethernet  ifname  enp0s3  con-name mephi-net
+   15  sudo nmcli con modify  mephi-net ipv4.method auto
+   16  sudo nmcli con up mephi-net 
+   17  ping -c 4 8.8.8.8
+   18  sudo nmcli con modify  mephi-net ipv4.method manual 
+   19  sudo nmcli con modify  mephi-net ipv4.addresses 192.168.0.100/24
+   20  sudo nmcli con modify  mephi-net ipv4.gateway 192.168.0.1
+   21  sudo nmcli con modify  mephi-net ipv4.dns "8.8.8.8"
+   22  sudo nmcli con modify  mephi-net ipv4.method manual 
+   23  sudo nmcli con up mephi-net 
+   24  ping -c 4 192.168.0.1
+   25  ping -c 4 8.8.8.8
+   26  nmcli con show mephi-net
+   27  ip a
+   28  sudo nmcli con modify  mephi-net ipv4.method manual ipv4.addresses 192.168.1.100/24 ipv4.gateway 192.168.1.1 ipv4.dns 8.8.8.8
+   29  sudo nmcli con up mephi-net 
+   30  ping -c 4 192.168.1.1
+   31  ping -c 4 8.8.8.8
+   32  ping -c 4 192.168.1.1
+   33  nmcli connection show
+   34  sudo nmcli connection delete enp0s3 
+   35  ping -c 4 192.168.1.1
+   36  nmcli connection show
+   37  sudo nmcli con delete mephi-net
+   38  ip link show
+   39  sudo nmcli con modify  enp0s3 ipv4.method manual ipv4.addresses 192.168.1.100/24 ipv4.gateway 192.168.1.1 ipv4.dns 8.8.8.8
+   40  nmcli connection show
+   41  nmcli connection  add type ethernet  con-name  enp0s3 ifname enp0s3 ipv4.method manual  ipv4.addresses 192.168.1.100/24 ipv4.gateway 192.168.1.1 ipv4.dns 8.8.8.8
+   42  nmcli connection  up enp0s3 
+   43  nmcli connection show
+   44  nmcli connection  modify "Проводное подключение 1" ipv4.method manual  ipv4.addresses 192.168.1.100/24 ipv4.gateway 192.168.1.1 ipv4.dns 8.8.8.8
+   45  nmcli connection  up "Проводное подключение 1" 
+   46  ip addr show enp0s3
+   47  ip route show default
+   48  ping -c 4 192.168.1.1
+   49  ping -c 4 8.8.8.8
+   50  nmcli connection  modify "Проводное подключение 1" ipv4.method manual  ipv4.addresses 192.168.0.100/24 ipv4.gateway 192.168.0.1 ipv4.dns 8.8.8.8
+   51  nmcli connection  up "Проводное подключение 1" 
+   52  ping -c 4 192.168.1.1
+   53  ping -c 4 8.8.8.8
+   54  nmcli connection  modify enp0s3 ipv4.method manual  ipv4.addresses 192.168.0.100/24 ipv4.gateway 192.168.0.1 ipv4.dns 8.8.8.8
+   55  nmcli connection  up enp0s3
+   56  ping -c 4 192.168.1.1
+   57  ping -c 4 192.168.0.1
+   58  ping -c 4 8.8.8.8
+   59  nmcli connection show
+   60  sudo nmcli con delete "Проводное подключение 1"
+   61  nmcli connection show
+   62  sudo nmcli connection add type ethernet con-name hostonly ifname enp0s3  ipv4.method manual  ipv4.addresses 192.168.1.100/24 ipv4.gateway 192.168.1.1 ipv4.dns 8.8.8.8
+   63  sudo nmcli connection add type ethernet con-name nat  ifname enp0s8  ipv4.method auto
+   64  sudo nmcli  connection down hostonly 
+   65  sudo nmcli  connection up hostonly 
+   66  sudo nmcli  connection down nat
+   67  sudo nmcli  connection up nat
+   68  nmcli connection show
+   69  ping -c 4 8.8.8.8
+   70  ping -c 4 192.168.0.1
+   71  nmcli connection show
+   72  sudo nmcli connection show
+   73  sudo nmcli connection delete nat
+   74  sudo nmcli connection delete hostonly 
+   75  sudo nmcli connection show
+   76  nmcli con show
+   77  sudo nmcli con mod "Проводное подключение 1" ipv4.addresses 192.168.1.100/24
+   78  sudo nmcli con mod "Проводное подключение 1" ipv4.gateway 192.168.1.1
+   79  sudo nmcli con mod "Проводное подключение 1" ipv4.dns 8.8.8.8
+   80  sudo nmcli con mod "Проводное подключение 1" ipv4.method manual 
+   81  sudo nmcli con up "Проводное подключение 1" 
+   82  ping -c 4 192.168.1.1
+   83  ip a 
+   84  ip route
+   85  ping -c 4 192.168.1.1
+   86  echo "Hello from Student: M255621" > /data/mephi-web/index.html
+   87  ls -l /data/mephi-web/
+   88  sudo nano /etc/nginx.conf
+   89  ls -ld /data/mephi-web
+   90  ls -l /data/mephi-web
+   91  sudo systemctl restart nginx
+   92  ss -tulnp | grep :80
+   93  sudo firewall-cmd --list-all
+   94  sudo firewall-cmd --add-service=http --permanent
+   95  sudo firewall-cmd --reload
+   96  sudo firewall-cmd --list-all
+   97  curl http://localhost
+   98  curl http://192.168.1.100
+   99  curl -s http://localhost | head -n 5
+  100  sudo vim /etc/nginx/nginx.conf
+  101  sudo systemctl restart nginx
+  102  curl -s http://localhost | head -n 5
+  103  curl http://localhost
+  104  curl http://192.168.1.100
+  105  history > ~/project_history.txt
